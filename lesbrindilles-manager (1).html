@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Les Brindilles — Bookings</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500;600&display=swap');
+
+  :root {
+    --cream: #f8f4ee;
+    --warm: #ede5d8;
+    --gold: #b8965a;
+    --gold-light: #d4b07a;
+    --ocean: #1e4a5c;
+    --ocean-mid: #2d6678;
+    --ocean-pale: #e8f0f3;
+    --text: #1a1a1a;
+    --muted: #7a7060;
+    --white: #ffffff;
+    --border: #ddd5c4;
+    --green: #3d6b4f;
+    --green-bg: #eaf2ec;
+    --red: #8b3a2a;
+    --red-bg: #f5ebe8;
+    --amber: #8b6020;
+    --amber-bg: #faf0e0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
+  body {
+    font-family: 'Jost', sans-serif;
+    background: var(--cream);
+    color: var(--text);
+    min-height: 100vh;
+    padding-bottom: 40px;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--ocean);
+    padding: 28px 20px 22px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .header::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 180px; height: 180px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 50%;
+  }
+
+  .header::after {
+    content: '';
+    position: absolute;
+    bottom: -30px; left: 30%;
+    width: 120px; height: 120px;
+    background: rgba(255,255,255,0.03);
+    border-radius: 50%;
+  }
+
+  .property-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 300;
+    color: #fff;
+    letter-spacing: 0.04em;
+    line-height: 1;
+  }
+
+  .property-sub {
+    font-size: 0.7rem;
+    font-weight: 400;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-top: 5px;
+  }
+
+  .today-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 14px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 5px 12px;
+    font-size: 0.72rem;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 0.05em;
+  }
+
+  .today-dot {
+    width: 6px; height: 6px;
+    background: #7ecba1;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
+  /* FILTER TABS */
+  .filter-bar {
+    display: flex;
+    gap: 0;
+    padding: 16px 20px 0;
+    border-bottom: 1.5px solid var(--border);
+    background: var(--cream);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .filter-btn {
+    font-family: 'Jost', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    background: transparent;
+    border: none;
+    padding: 8px 16px 12px;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1.5px;
+    transition: all 0.2s;
+  }
+
+  .filter-btn.active {
+    color: var(--ocean);
+    border-bottom-color: var(--ocean);
+  }
+
+  /* SECTION LABEL */
+  .section-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    padding: 20px 20px 8px;
+  }
+
+  /* BOOKING CARDS */
+  .cards { padding: 0 16px; }
+
+  .card {
+    background: var(--white);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    margin-bottom: 12px;
+    overflow: hidden;
+    transition: box-shadow 0.2s;
+  }
+
+  .card:active { box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+
+  .card.current {
+    border-color: var(--ocean-mid);
+    box-shadow: 0 0 0 2px rgba(45,102,120,0.15);
+  }
+
+  .card.past { opacity: 0.65; }
+
+  /* STATUS BAR */
+  .status-bar {
+    height: 3px;
+    width: 100%;
+  }
+  .status-bar.upcoming { background: var(--gold); }
+  .status-bar.current  { background: linear-gradient(90deg, var(--ocean), var(--ocean-mid)); }
+  .status-bar.past     { background: var(--border); }
+
+  .card-inner {
+    padding: 16px;
+    cursor: pointer;
+  }
+
+  /* CARD HEADER ROW */
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+
+  .guest-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.35rem;
+    font-weight: 400;
+    color: var(--text);
+    line-height: 1.1;
+  }
+
+  .status-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 3px 9px;
+    border-radius: 10px;
+    flex-shrink: 0;
+    margin-left: 8px;
+    margin-top: 3px;
+  }
+
+  .badge-current  { background: var(--ocean-pale); color: var(--ocean); }
+  .badge-upcoming { background: var(--amber-bg);   color: var(--amber); }
+  .badge-past     { background: var(--warm);        color: var(--muted); }
+
+  /* DATES ROW */
+  .dates-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 10px;
+  }
+
+  .date-block {
+    flex: 1;
+    background: var(--cream);
+    border-radius: 8px;
+    padding: 8px 10px;
+  }
+
+  .date-label {
+    font-size: 0.6rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .date-value {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+  }
+
+  .nights-sep {
+    font-size: 0.7rem;
+    color: var(--muted);
+    font-weight: 500;
+    text-align: center;
+    flex-shrink: 0;
+    padding: 0 2px;
+  }
+
+  .nights-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem;
+    font-weight: 400;
+    display: block;
+    color: var(--ocean);
+  }
+
+  /* GUESTS ROW */
+  .guests-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 0;
+  }
+
+  .guest-chip {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: var(--cream);
+    border-radius: 20px;
+    padding: 4px 10px;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: var(--text);
+  }
+
+  .guest-chip .icon { font-size: 0.9rem; }
+
+  /* EXPANDED DETAILS */
+  .card-details {
+    display: none;
+    border-top: 1px solid var(--warm);
+    padding: 14px 16px;
+    background: #fdfcfa;
+  }
+
+  .card-details.open { display: block; }
+
+  .detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+
+  .detail-row:last-child { margin-bottom: 0; }
+
+  .detail-icon {
+    font-size: 1rem;
+    width: 22px;
+    text-align: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .detail-content {}
+  .detail-label {
+    font-size: 0.65rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+
+  .detail-value {
+    font-size: 0.9rem;
+    color: var(--text);
+    line-height: 1.4;
+  }
+
+  .detail-value a {
+    color: var(--ocean);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  .note-text {
+    font-size: 0.88rem;
+    color: var(--text);
+    line-height: 1.5;
+    font-style: italic;
+    background: var(--amber-bg);
+    border-left: 3px solid var(--gold);
+    padding: 8px 10px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .chevron {
+    display: inline-block;
+    font-size: 0.7rem;
+    color: var(--muted);
+    margin-left: 6px;
+    transition: transform 0.2s;
+  }
+  .chevron.open { transform: rotate(180deg); }
+
+  /* EMPTY */
+  .empty {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--muted);
+    font-style: italic;
+    font-size: 0.9rem;
+  }
+
+  /* COUNTDOWN */
+  .countdown {
+    font-size: 0.72rem;
+    color: var(--ocean);
+    font-weight: 500;
+    margin-top: 4px;
+  }
+
+  .night-progress {
+    height: 3px;
+    background: var(--warm);
+    border-radius: 2px;
+    margin-top: 10px;
+    overflow: hidden;
+  }
+
+  .night-progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--ocean), var(--ocean-mid));
+    border-radius: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="property-name">Les Brindilles</div>
+  <div class="property-sub">Grand Baie · Booking Schedule</div>
+  <div class="today-pill">
+    <span class="today-dot"></span>
+    <span id="todayLabel"></span>
+  </div>
+</div>
+
+<div class="filter-bar">
+  <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+  <button class="filter-btn" onclick="setFilter('current', this)">In House</button>
+  <button class="filter-btn" onclick="setFilter('upcoming', this)">Upcoming</button>
+  <button class="filter-btn" onclick="setFilter('past', this)">Past</button>
+</div>
+
+<div id="bookingsList"></div>
+
+<script>
+const today = new Date();
+today.setHours(0,0,0,0);
+
+const bookings = [
+  {name:'Claire Dewost',         ci:'2025-12-26', co:'2026-01-02', adults:4, children:3, infants:0, phone:'', notes:''},
+  {name:'Henri / Junior Payet',  ci:'2026-01-02', co:'2026-01-09', adults:7, children:0, infants:0, phone:'', notes:''},
+  {name:'Alex Rose',             ci:'2026-01-11', co:'2026-01-18', adults:4, children:3, infants:0, phone:'', notes:''},
+  {name:'Ernest McCall',         ci:'2026-01-24', co:'2026-01-29', adults:2, children:0, infants:0, phone:'', notes:''},
+  {name:'Jean Charles Capillo',  ci:'2026-01-29', co:'2026-02-02', adults:2, children:0, infants:0, phone:'', notes:''},
+  {name:'Nina Laerke',           ci:'2026-02-02', co:'2026-02-11', adults:5, children:0, infants:0, phone:'', notes:''},
+  {name:'Nina Laerke',           ci:'2026-02-11', co:'2026-02-16', adults:2, children:0, infants:0, phone:'', notes:'3 guests departed Feb 11'},
+  {name:'Anna Leboucher',        ci:'2026-02-16', co:'2026-02-23', adults:4, children:0, infants:0, phone:'', notes:''},
+  {name:'Anna Leboucher',        ci:'2026-02-23', co:'2026-03-01', adults:2, children:0, infants:0, phone:'', notes:'2 guests departed Feb 23'},
+  {name:'Yolande Schneider',     ci:'2026-03-04', co:'2026-03-15', adults:5, children:0, infants:0, phone:'', notes:''},
+  {name:'Leon Benz',             ci:'2026-03-15', co:'2026-03-20', adults:4, children:0, infants:0, phone:'', notes:''},
+  {name:'Thomas Riera',          ci:'2026-03-22', co:'2026-03-27', adults:2, children:0, infants:0, phone:'', notes:''},
+  {name:'Steinar Lundeberg',     ci:'2026-03-27', co:'2026-04-06', adults:6, children:0, infants:0, phone:'', notes:''},
+  {name:'Krishnaswamy Venugopal',ci:'2026-04-06', co:'2026-04-09', adults:4, children:0, infants:0, phone:'', notes:''},
+  {name:'Nathalie Vasseur',      ci:'2026-04-09', co:'2026-04-16', adults:3, children:2, infants:0, phone:'', notes:''},
+  {name:'Jevgenijs Kopilkovs',   ci:'2026-04-17', co:'2026-04-29', adults:2, children:2, infants:1, phone:'+371 29 211 775', notes:''},
+  {name:'Goran Todorovic',       ci:'2026-05-01', co:'2026-05-05', adults:2, children:2, infants:0, phone:'+33 6 23 11 63 91', notes:''},
+  {name:'Martin Riou',           ci:'2026-05-07', co:'2026-05-10', adults:4, children:0, infants:0, phone:'+33 7 82 45 49 77', notes:''},
+  {name:'Mazen Alsuhaymi',       ci:'2026-05-10', co:'2026-05-14', adults:2, children:0, infants:0, phone:'+966 55 256 7802', notes:''},
+  {name:'Laurence Blanco',       ci:'2026-05-16', co:'2026-05-23', adults:4, children:0, infants:0, phone:'+62 822-3654-7866', notes:''},
+  {name:'Ashendra Bansal',       ci:'2026-05-24', co:'2026-05-30', adults:4, children:0, infants:2, phone:'+91 81975 55459', notes:''},
+  {name:'Nirav Parikh',          ci:'2026-06-04', co:'2026-06-07', adults:6, children:0, infants:0, phone:'+91 92234 84833', notes:''},
+  {name:'Aishu',           ci:'2026-06-08', co:'2026-06-15', adults:2, children:0, infants:1, phone:'', notes:'Aakash\'s sister\'s friend'},
+  {name:'Tallulah Juta',         ci:'2026-06-19', co:'2026-06-23', adults:3, children:0, infants:1, phone:'+27 78 029 0375', notes:''},
+  {name:'John Shields',          ci:'2026-06-30', co:'2026-07-09', adults:4, children:2, infants:0, phone:'+34 663 83 25 52', notes:''},
+];
+
+let currentFilter = 'all';
+
+function getStatus(ci, co) {
+  const ciDate = new Date(ci); ciDate.setHours(0,0,0,0);
+  const coDate = new Date(co); coDate.setHours(0,0,0,0);
+  if (today >= ciDate && today < coDate) return 'current';
+  if (ciDate > today) return 'upcoming';
+  return 'past';
+}
+
+function fmtDate(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+}
+
+function nightsBetween(ci, co) {
+  return Math.round((new Date(co) - new Date(ci)) / 86400000);
+}
+
+function daysUntil(iso) {
+  const d = new Date(iso + 'T00:00:00'); d.setHours(0,0,0,0);
+  return Math.round((d - today) / 86400000);
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  render();
+}
+
+function toggleCard(id) {
+  const det = document.getElementById('det-' + id);
+  const chev = document.getElementById('chev-' + id);
+  det.classList.toggle('open');
+  chev.classList.toggle('open');
+}
+
+function render() {
+  const container = document.getElementById('bookingsList');
+  const filtered = bookings.filter(b => {
+    const s = getStatus(b.ci, b.co);
+    return currentFilter === 'all' || currentFilter === s;
+  });
+
+  if (!filtered.length) {
+    container.innerHTML = '<div class="empty">No bookings to show.</div>';
+    return;
+  }
+
+  // Group
+  const sortByDate = arr => [...arr].sort((a,b) => a.ci.localeCompare(b.ci));
+  const current  = sortByDate(filtered.filter(b => getStatus(b.ci,b.co)==='current'));
+  const upcoming = sortByDate(filtered.filter(b => getStatus(b.ci,b.co)==='upcoming'));
+  const past     = sortByDate(filtered.filter(b => getStatus(b.ci,b.co)==='past'));
+
+  let html = '';
+
+  function renderSection(label, items) {
+    if (!items.length) return '';
+    let s = `<div class="section-label">${label}</div><div class="cards">`;
+    items.forEach((b, i) => {
+      const idx = bookings.indexOf(b);
+      const status = getStatus(b.ci, b.co);
+      const nights = nightsBetween(b.ci, b.co);
+      const du = daysUntil(b.ci);
+      const daysLeft = daysUntil(b.co);
+
+      let countdown = '';
+      if (status === 'current') {
+        const nightsStayed = nightsBetween(b.ci, new Date().toISOString().slice(0,10));
+        const pct = Math.round((nightsStayed / nights) * 100);
+        countdown = `<div class="night-progress"><div class="night-progress-fill" style="width:${pct}%"></div></div>
+          <div class="countdown">Checking out in ${daysLeft} day${daysLeft!==1?'s':''}</div>`;
+      } else if (status === 'upcoming') {
+        countdown = `<div class="countdown">Check-in in ${du} day${du!==1?'s':''}</div>`;
+      }
+
+      const guestChips = [];
+      if (b.adults > 0)   guestChips.push(`<span class="guest-chip"><span class="icon">👤</span>${b.adults} adult${b.adults!==1?'s':''}</span>`);
+      if (b.children > 0) guestChips.push(`<span class="guest-chip"><span class="icon">🧒</span>${b.children} child${b.children!==1?'ren':''}</span>`);
+      if (b.infants > 0)  guestChips.push(`<span class="guest-chip"><span class="icon">🍼</span>${b.infants} infant${b.infants!==1?'s':''}</span>`);
+
+      const hasDetails = false;
+
+      s += `<div class="card ${status}">
+        <div class="status-bar ${status}"></div>
+        <div class="card-inner" onclick="${hasDetails ? `toggleCard(${idx})` : ''}">
+          <div class="card-top">
+            <div>
+              <div class="guest-name">${b.name}${hasDetails ? `<span class="chevron" id="chev-${idx}">▾</span>` : ''}</div>
+              ${countdown}
+            </div>
+            <span class="status-badge badge-${status}">${status === 'current' ? 'In house' : status === 'upcoming' ? 'Upcoming' : 'Past'}</span>
+          </div>
+          <div class="dates-row">
+            <div class="date-block">
+              <div class="date-label">Check-in</div>
+              <div class="date-value">${fmtDate(b.ci)}</div>
+            </div>
+            <div class="nights-sep"><span class="nights-num">${nights}</span>nights</div>
+            <div class="date-block">
+              <div class="date-label">Check-out</div>
+              <div class="date-value">${fmtDate(b.co)}</div>
+            </div>
+          </div>
+          <div class="guests-row">${guestChips.join('')}</div>
+          ${b.phone ? `<div style="margin-top:9px;display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--ocean);font-weight:500;"><span>📞</span><a href="tel:${b.phone}" style="color:var(--ocean);text-decoration:none;">${b.phone}</a></div>` : ''}
+          ${b.notes ? `<div style="margin-top:6px;font-size:0.78rem;color:var(--muted);font-style:italic;">📝 ${b.notes}</div>` : ''}
+        </div>`;
+
+      if (hasDetails) {
+        s += `<div class="card-details" id="det-${idx}">`;
+        if (b.phone) s += `<div class="detail-row">
+          <div class="detail-icon">📞</div>
+          <div class="detail-content">
+            <div class="detail-label">Phone</div>
+            <div class="detail-value"><a href="tel:${b.phone}">${b.phone}</a></div>
+          </div></div>`;
+        if (b.notes) s += `<div class="detail-row">
+          <div class="detail-icon">📝</div>
+          <div class="detail-content">
+            <div class="detail-label">Notes</div>
+            <div class="note-text">${b.notes}</div>
+          </div></div>`;
+        s += `</div>`;
+      }
+
+      s += `</div>`;
+    });
+    s += '</div>';
+    return s;
+  }
+
+  if (currentFilter === 'all') {
+    html += renderSection('Currently In House', current);
+    html += renderSection('Upcoming', upcoming);
+    html += renderSection('Past Stays', past);
+  } else {
+    html += renderSection(
+      currentFilter === 'current' ? 'Currently In House' :
+      currentFilter === 'upcoming' ? 'Upcoming' : 'Past Stays',
+      filtered
+    );
+  }
+
+  container.innerHTML = html;
+}
+
+// Today label
+const opts = { weekday:'long', day:'numeric', month:'long', year:'numeric' };
+document.getElementById('todayLabel').textContent = today.toLocaleDateString('en-GB', opts);
+
+render();
+</script>
+</body>
+</html>
