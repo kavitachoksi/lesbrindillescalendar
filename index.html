@@ -411,32 +411,32 @@ const today = new Date();
 today.setHours(0,0,0,0);
 
 const bookings = [
-  {name:'Claire Dewost',         ci:'2025-12-26', co:'2026-01-02', adults:4, children:3, infants:0, phone:'', notes:''},
-  {name:'Henri / Junior Payet',  ci:'2026-01-02', co:'2026-01-09', adults:7, children:0, infants:0, phone:'', notes:''},
-  {name:'Alex Rose',             ci:'2026-01-11', co:'2026-01-18', adults:4, children:3, infants:0, phone:'', notes:''},
-  {name:'Ernest McCall',         ci:'2026-01-24', co:'2026-01-29', adults:2, children:0, infants:0, phone:'', notes:''},
-  {name:'Jean Charles Capillo',  ci:'2026-01-29', co:'2026-02-02', adults:2, children:0, infants:0, phone:'', notes:''},
-  {name:'Nina Laerke',           ci:'2026-02-02', co:'2026-02-11', adults:5, children:0, infants:0, phone:'', notes:''},
-  {name:'Nina Laerke',           ci:'2026-02-11', co:'2026-02-16', adults:2, children:0, infants:0, phone:'', notes:'3 guests departed Feb 11'},
-  {name:'Anna Leboucher',        ci:'2026-02-16', co:'2026-02-23', adults:4, children:0, infants:0, phone:'', notes:''},
-  {name:'Anna Leboucher',        ci:'2026-02-23', co:'2026-03-01', adults:2, children:0, infants:0, phone:'', notes:'2 guests departed Feb 23'},
-  {name:'Yolande Schneider',     ci:'2026-03-04', co:'2026-03-15', adults:5, children:0, infants:0, phone:'', notes:''},
-  {name:'Leon Benz',             ci:'2026-03-15', co:'2026-03-20', adults:4, children:0, infants:0, phone:'', notes:''},
-  {name:'Thomas Riera',          ci:'2026-03-22', co:'2026-03-27', adults:2, children:0, infants:0, phone:'', notes:''},
-  {name:'Steinar Lundeberg',     ci:'2026-03-27', co:'2026-04-06', adults:6, children:0, infants:0, phone:'', notes:''},
-  {name:'Krishnaswamy Venugopal',ci:'2026-04-06', co:'2026-04-09', adults:4, children:0, infants:0, phone:'', notes:''},
-  {name:'Nathalie Vasseur',      ci:'2026-04-09', co:'2026-04-16', adults:3, children:2, infants:0, phone:'', notes:''},
-  {name:'Jevgenijs Kopilkovs',   ci:'2026-04-17', co:'2026-04-29', adults:2, children:2, infants:1, phone:'+371 29 211 775', notes:''},
-  {name:'Goran Todorovic',       ci:'2026-05-01', co:'2026-05-05', adults:2, children:2, infants:0, phone:'+33 6 23 11 63 91', notes:''},
-  {name:'Martin Riou',           ci:'2026-05-07', co:'2026-05-10', adults:4, children:0, infants:0, phone:'+33 7 82 45 49 77', notes:''},
-  {name:'Mazen Alsuhaymi',       ci:'2026-05-10', co:'2026-05-14', adults:2, children:0, infants:0, phone:'+966 55 256 7802', notes:''},
-  {name:'Laurence Blanco',       ci:'2026-05-16', co:'2026-05-23', adults:4, children:0, infants:0, phone:'+62 822-3654-7866', notes:''},
-  {name:'Ashendra Bansal',       ci:'2026-05-24', co:'2026-05-30', adults:4, children:0, infants:2, phone:'+91 81975 55459', notes:''},
-  {name:'Shivendra Singh', ci:'2026-05-30', co:'2026-06-02', adults:4, children:0, infants:2, phone:'', notes:''},
-  {name:'Nirav Parikh',          ci:'2026-06-04', co:'2026-06-07', adults:6, children:0, infants:0, phone:'+91 92234 84833', notes:''},
+  {name:'Claire Dewost',         ci:'2025-12-26', co:'2026-01-02', adults:4, children:3, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Henri / Junior Payet',  ci:'2026-01-02', co:'2026-01-09', adults:7, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Alex Rose',             ci:'2026-01-11', co:'2026-01-18', adults:4, children:3, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Ernest McCall',         ci:'2026-01-24', co:'2026-01-29', adults:2, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Jean Charles Capillo',  ci:'2026-01-29', co:'2026-02-02', adults:2, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Nina Laerke',           ci:'2026-02-02', co:'2026-02-11', adults:5, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Nina Laerke',           ci:'2026-02-11', co:'2026-02-16', adults:2, children:0, infants:0, phone:'', checkin:'', notes:'3 guests departed Feb 11'},
+  {name:'Anna Leboucher',        ci:'2026-02-16', co:'2026-02-23', adults:4, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Anna Leboucher',        ci:'2026-02-23', co:'2026-03-01', adults:2, children:0, infants:0, phone:'', checkin:'', notes:'2 guests departed Feb 23'},
+  {name:'Yolande Schneider',     ci:'2026-03-04', co:'2026-03-15', adults:5, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Leon Benz',             ci:'2026-03-15', co:'2026-03-20', adults:4, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Thomas Riera',          ci:'2026-03-22', co:'2026-03-27', adults:2, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Steinar Lundeberg',     ci:'2026-03-27', co:'2026-04-06', adults:6, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Krishnaswamy Venugopal',ci:'2026-04-06', co:'2026-04-09', adults:4, children:0, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Nathalie Vasseur',      ci:'2026-04-09', co:'2026-04-16', adults:3, children:2, infants:0, phone:'', checkin:'', notes:''},
+  {name:'Jevgenijs Kopilkovs',   ci:'2026-04-17', co:'2026-04-29', adults:2, children:2, infants:1, phone:'+371 29 211 775', checkin:'', notes:''},
+  {name:'Goran Todorovic',       ci:'2026-05-01', co:'2026-05-05', adults:2, children:2, infants:0, phone:'+33 6 23 11 63 91', checkin:'', notes:''},
+  {name:'Martin Riou',           ci:'2026-05-07', co:'2026-05-10', adults:4, children:0, infants:0, phone:'+33 7 82 45 49 77', checkin:'', notes:''},
+  {name:'Mazen Alsuhaymi',       ci:'2026-05-10', co:'2026-05-14', adults:2, children:0, infants:0, phone:'+966 55 256 7802', checkin:'', notes:''},
+  {name:'Laurence Blanco',       ci:'2026-05-16', co:'2026-05-23', adults:4, children:0, infants:0, phone:'+62 822-3654-7866', checkin:'', notes:''},
+  {name:'Ashendra Bansal',       ci:'2026-05-24', co:'2026-05-30', adults:4, children:0, infants:2, phone:'+91 81975 55459', checkin:'', notes:''},
+  {name:'Shivendra Singh', ci:'2026-05-30', co:'2026-06-02', adults:4, children:0, infants:2, phone:'', checkin:'Arrival 7am', notes:'1 room + kitchen ready by 10am'},
+  {name:'Nirav Parikh',          ci:'2026-06-04', co:'2026-06-07', adults:6, children:0, infants:0, phone:'+91 92234 84833', checkin:'', notes:''},
   {name:'Aishu',           ci:'2026-06-08', co:'2026-06-15', adults:2, children:0, infants:1, phone:'', notes:'Aakash\'s sister\'s friend'},
-  {name:'Tallulah Juta',         ci:'2026-06-19', co:'2026-06-23', adults:3, children:0, infants:1, phone:'+27 78 029 0375', notes:''},
-  {name:'John Shields',          ci:'2026-06-30', co:'2026-07-09', adults:4, children:2, infants:0, phone:'+34 663 83 25 52', notes:''},
+  {name:'Tallulah Juta',         ci:'2026-06-19', co:'2026-06-23', adults:3, children:0, infants:1, phone:'+27 78 029 0375', checkin:'', notes:''},
+  {name:'John Shields',          ci:'2026-06-30', co:'2026-07-09', adults:4, children:2, infants:0, phone:'+34 663 83 25 52', checkin:'', notes:''},
 ];
 
 let currentFilter = 'all';
@@ -449,9 +449,12 @@ function getStatus(ci, co) {
   return 'past';
 }
 
-function fmtDate(iso) {
+const backToBack = new Set(['2026-01-02', '2026-01-29', '2026-02-02', '2026-02-11', '2026-02-16', '2026-02-23', '2026-03-15', '2026-03-27', '2026-04-06', '2026-04-09', '2026-04-16', '2026-04-17', '2026-05-10', '2026-05-23', '2026-05-24', '2026-05-30', '2026-06-07', '2026-06-08']);
+function fd(iso, highlight) {
   const d = new Date(iso + 'T00:00:00');
-  return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
+  const str = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+  if (highlight && backToBack.has(iso)) return '<span style="color:#c9604a;font-weight:700">' + str + '</span>';
+  return str;
 }
 
 function nightsBetween(ci, co) {
@@ -537,17 +540,19 @@ function render() {
           <div class="dates-row">
             <div class="date-block">
               <div class="date-label">Check-in</div>
-              <div class="date-value">${fmtDate(b.ci)}</div>
+              <div class="date-value">${fd(b.ci, true)}</div>
             </div>
             <div class="nights-sep"><span class="nights-num">${nights}</span>nights</div>
             <div class="date-block">
               <div class="date-label">Check-out</div>
-              <div class="date-value">${fmtDate(b.co)}</div>
+              <div class="date-value">${fd(b.co, true)}</div>
             </div>
           </div>
           <div class="guests-row">${guestChips.join('')}</div>
           ${b.phone ? `<div style="margin-top:9px;display:flex;align-items:center;gap:6px;font-size:0.82rem;color:var(--ocean);font-weight:500;"><span>📞</span><a href="tel:${b.phone}" style="color:var(--ocean);text-decoration:none;">${b.phone}</a></div>` : ''}
-          ${b.notes ? `<div style="margin-top:6px;font-size:0.78rem;color:var(--muted);font-style:italic;">📝 ${b.notes}</div>` : ''}
+          ${b.infants > 0 ? `<div style="margin-top:6px;font-size:0.78rem;font-weight:600;color:#c2185b;background:#fce4ec;border-radius:6px;padding:4px 10px;display:inline-block;">🍼 Does client need cot?</div>` : ''}
+          ${b.checkin ? `<div style="margin-top:6px;font-size:0.78rem;color:var(--text);font-weight:500;">🕐 ${b.checkin}</div>` : ''}
+          ${b.notes ? `<div style="margin-top:4px;font-size:0.78rem;color:var(--muted);font-style:italic;">📝 ${b.notes}</div>` : ''}
         </div>`;
 
       if (hasDetails) {
