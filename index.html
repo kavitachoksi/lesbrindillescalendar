@@ -434,8 +434,25 @@ const bookings = [
   {name:'Ashendra Bansal',       ci:'2026-05-24', co:'2026-05-30', adults:4, children:0, infants:2, phone:'+91 81975 55459', country:'🇮🇳 India', checkin:'', notes:''},
   {name:'Nirav Parikh',          ci:'2026-06-04', co:'2026-06-07', adults:6, children:0, infants:0, phone:'+91 92234 84833', country:'🇮🇳 India', checkin:'', notes:''},
   {name:'Aishu',           ci:'2026-06-08', co:'2026-06-15', adults:2, children:0, infants:1, phone:'', notes:'Aakash\'s sister\'s friend'},
-  {name:'Tallulah Juta',         ci:'2026-06-19', co:'2026-06-23', adults:3, children:0, infants:1, phone:'+27 78 029 0375', country:'🇿🇦 South Africa', checkin:'', notes:''},
+  {name:'Tallulah Juta',         ci:'2026-06-19', co:'2026-06-23', adults:3, children:0, infants:1, phone:'+27 78 029 0375', country:'🇿🇦 South Africa', checkin:'', notes:'Afiza coming to help Usha'},
   {name:'John Shields',          ci:'2026-06-30', co:'2026-07-09', adults:4, children:2, infants:0, phone:'+34 663 83 25 52', country:'🇪🇸 Spain', checkin:'', notes:''},
+  {name:'Алёна Никифорова',      ci:'2026-06-15', co:'2026-06-19', adults:2, children:3, infants:1, phone:'', country:'', checkin:'', notes:'🐾 1 pet · Anusha coming to help Usha'},
+  {name:'Aloïs Baujon',          ci:'2026-06-23', co:'2026-06-27', adults:2, children:0, infants:0, phone:'', country:'', checkin:'', notes:'Afiza coming to help Usha'},
+  {name:'Pritesh Vinay',         ci:'2026-07-10', co:'2026-07-13', adults:1, children:0, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Jasmina Van Eeckhout',  ci:'2026-07-14', co:'2026-07-23', adults:2, children:2, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Abhishek Mohan',        ci:'2026-07-23', co:'2026-08-03', adults:7, children:2, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Margot Febvey',         ci:'2026-08-07', co:'2026-08-11', adults:5, children:1, infants:1, phone:'', country:'', checkin:'', notes:''},
+  {name:'Michaela Stelzl',       ci:'2026-08-21', co:'2026-08-25', adults:7, children:0, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Paul Booth',            ci:'2026-08-26', co:'2026-08-30', adults:4, children:1, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Estelle Schoonwinkel',  ci:'2026-10-01', co:'2026-10-08', adults:3, children:0, infants:1, phone:'', country:'', checkin:'', notes:''},
+  {name:'Herve Miedel',          ci:'2026-10-17', co:'2026-10-29', adults:4, children:1, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Sériane Bogni',         ci:'2026-10-30', co:'2026-11-04', adults:6, children:0, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Véronique Gosset',      ci:'2026-11-13', co:'2026-11-19', adults:4, children:0, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Janos Kalman',          ci:'2026-11-20', co:'2026-11-25', adults:2, children:1, infants:1, phone:'', country:'', checkin:'', notes:''},
+  {name:'Claire Cooper',         ci:'2026-12-12', co:'2026-12-16', adults:5, children:0, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Dee Janvier-Wood',      ci:'2026-12-16', co:'2027-01-01', adults:4, children:1, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Gabriela Egeli',        ci:'2027-01-01', co:'2027-01-09', adults:3, children:0, infants:0, phone:'', country:'', checkin:'', notes:''},
+  {name:'Susan Falck',           ci:'2027-01-09', co:'2027-01-17', adults:2, children:0, infants:0, phone:'', country:'', checkin:'', notes:''},
 ];
 
 let currentFilter = 'all';
@@ -448,7 +465,7 @@ function getStatus(ci, co) {
   return 'past';
 }
 
-const backToBack = new Set(['2026-01-02', '2026-01-29', '2026-02-02', '2026-02-11', '2026-02-16', '2026-02-23', '2026-03-15', '2026-03-27', '2026-04-06', '2026-04-09', '2026-04-16', '2026-04-17', '2026-05-10', '2026-05-23', '2026-05-24', '2026-06-07', '2026-06-08']);
+const backToBack = new Set(['2026-01-02', '2026-01-29', '2026-02-02', '2026-02-11', '2026-02-16', '2026-02-23', '2026-03-15', '2026-03-27', '2026-04-06', '2026-04-09', '2026-04-16', '2026-04-17', '2026-05-10', '2026-05-23', '2026-05-24', '2026-06-07', '2026-06-08', '2026-06-15', '2026-06-19', '2026-06-23', '2026-07-09', '2026-07-10', '2026-07-13', '2026-07-14', '2026-07-23', '2026-08-25', '2026-08-26', '2026-10-29', '2026-10-30', '2026-11-19', '2026-11-20', '2026-12-16', '2027-01-01', '2027-01-09']);
 function fd(iso, highlight) {
   const d = new Date(iso + 'T00:00:00');
   const str = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
