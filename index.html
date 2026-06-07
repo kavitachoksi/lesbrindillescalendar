@@ -114,14 +114,15 @@ const bookings = [
   {name:'Jevgenijs Kopilkovs',    ci:'2026-04-17',co:'2026-04-29',adults:2,children:2,infants:1,phone:'+371 29 211 775',country:'🇱🇻 Latvia',checkin:'',notes:'2 children + 1 infant',cot:'ask'},
   {name:'Goran Todorovic',        ci:'2026-05-01',co:'2026-05-05',adults:2,children:2,infants:0,phone:'+33 6 23 11 63 91',country:'🇫🇷 France',checkin:'',notes:''},
   {name:'Martin Riou',            ci:'2026-05-07',co:'2026-05-10',adults:4,children:0,infants:0,phone:'+33 7 82 45 49 77',country:'🇫🇷 France',checkin:'',notes:''},
-  {name:'Mazen Alsuhaymi',        ci:'2026-05-10',co:'2026-05-14',adults:2,children:0,infants:0,phone:'+966 55 256 7802',country:'🇸🇦 Saudi Arabia',checkin:'',notes:'Back-to-back with Martin — Anusha coming 10 May',helper:'Anusha'},
+  {name:'Mazen Alsuhaymi',        ci:'2026-05-10',co:'2026-05-14',adults:2,children:0,infants:0,phone:'+966 55 256 7802',country:'🇸🇦 Saudi Arabia',checkin:'',notes:'Back-to-back with Martin — Anusha coming 10 May'},
   {name:'Laurence Blanco',        ci:'2026-05-16',co:'2026-05-23',adults:4,children:0,infants:0,phone:'+62 822-3654-7866',country:'🇮🇩 Indonesia',checkin:'',notes:'Usha alone — overtime 15 May'},
   {name:'Ashendra Bansal',        ci:'2026-05-24',co:'2026-05-30',adults:4,children:0,infants:2,phone:'+91 81975 55459',country:'🇮🇳 India',checkin:'Arrival 24 May 10–11am',notes:'Departure 30 May 6–7am',cot:'no'},
   {name:'Nirav Parikh',           ci:'2026-06-04',co:'2026-06-07',adults:6,children:0,infants:0,phone:'+91 92234 84833',country:'🇮🇳 India',checkin:'',notes:''},
-  {name:'Aishwarya',              ci:'2026-06-08',co:'2026-06-15',adults:3,children:0,infants:1,phone:'',country:'',checkin:'',notes:"Aakash's sister's friend",cot:'yes',cotNote:'Cot + sheets needed',helper:'Anusha',helperConfirmed:true},
-  {name:'Алёна / Alyona Nikiforova',ci:'2026-06-15',co:'2026-06-19',adults:2,children:3,infants:1,phone:'+7 913 463 7776',country:'🇷🇺 Russia',checkin:'',notes:'🐾 1 pet',cot:'yes',cotNote:'Cot + sheets needed',helper:'Anusha'},
-  {name:'Tallulah Juta',          ci:'2026-06-19',co:'2026-06-23',adults:3,children:0,infants:1,phone:'+27 78 029 0375',country:'🇿🇦 South Africa',checkin:'',notes:'Coming from East Coast · Need to make up all 4 rooms',cot:'yes',cotNote:'Cot + sheets needed',helper:'Afiza',helperConfirmed:true},
-  {name:'Aloïs Baujon',           ci:'2026-06-23',co:'2026-06-27',adults:2,children:0,infants:0,phone:'',country:'',checkin:'',notes:'',helper:'Afiza'},
+  {name:'Aishwarya',              ci:'2026-06-08',co:'2026-06-15',adults:3,children:0,infants:1,phone:'',country:'',checkin:'',notes:"Aakash's sister's friend",cot:'yes',cotNote:'Cot + sheets needed'},
+  {name:'Алёна / Alyona Nikiforova',ci:'2026-06-15',co:'2026-06-19',adults:2,children:3,infants:1,phone:'+7 913 463 7776',country:'🇷🇺 Russia',checkin:'',notes:'🐾 1 pet',cot:'yes',cotNote:'Cot + sheets needed'},
+  {name:'Tallulah Juta',          ci:'2026-06-19',co:'2026-06-23',adults:3,children:0,infants:1,phone:'+27 78 029 0375',country:'🇿🇦 South Africa',checkin:'',notes:'Coming from East Coast · Need to make up all 4 rooms',cot:'yes',cotNote:'Cot + sheets needed'},
+  {name:'Aloïs Baujon',           ci:'2026-06-23',co:'2026-06-27',adults:2,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
+  {name:'Morgane Honore',         ci:'2026-06-27',co:'2026-06-30',adults:5,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
   {name:'John Shields',           ci:'2026-06-30',co:'2026-07-09',adults:4,children:2,infants:0,phone:'+34 663 83 25 52',country:'🇪🇸 Spain',checkin:'',notes:''},
   {name:'Pritesh Vinay',          ci:'2026-07-10',co:'2026-07-13',adults:1,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
   {name:'Jasmina Van Eeckhout',   ci:'2026-07-14',co:'2026-07-23',adults:2,children:2,infants:0,phone:'',country:'',checkin:'',notes:''},
@@ -215,10 +216,9 @@ function card(b) {
   if (b.cot === 'ask')  info += '<div class="tag tag-pink">🍼 Does client need cot?</div>';
   if (b.checkin) info += '<div class="tag tag-amber">🕐 '+b.checkin+'</div>';
   if (b.notes)   info += '<div class="info-row" style="margin-top:5px;font-size:0.78rem;color:var(--muted);font-style:italic;">📝 '+b.notes+'</div>';
-  if (b.helper) {
-    if (pax > 4 || b.helperConfirmed) info += '<div class="tag tag-blue">👥 '+b.helper+' coming to help Usha</div>';
-    else         info += '<div class="tag tag-grey">👥 Does '+b.helper+' need to come help Usha?</div>';
-  }
+  const helper = getHelper(b);
+  if (helper === 'Anusha') info += '<div class="tag" style="background:#e8f5e9;color:#2e7d32;margin-top:5px;">👥 Anusha coming to help Usha</div>';
+  if (helper === 'Afiza')  info += '<div class="tag" style="background:#e3f2fd;color:#1565c0;margin-top:5px;">👥 Afiza coming to help Usha</div>';
 
   return '<div class="card '+s+'">'
     + '<div class="bar '+s+'"></div>'
@@ -235,6 +235,14 @@ function card(b) {
     + '<div class="chips">'+chips+'</div>'
     + info
     + '</div></div>';
+}
+
+// Auto-assign helper for b2b arrivals based on check-in day
+// Anusha: Sun(0) Mon(1) Thu(4) Sat(6) — Afiza: Tue(2) Wed(3) Fri(5)
+function getHelper(b) {
+  if (!b2b.has(b.ci)) return null;
+  const dow = new Date(b.ci + 'T00:00:00').getDay(); // 0=Sun
+  return [0, 1, 4, 6].includes(dow) ? 'Anusha' : 'Afiza';
 }
 
 function render() {
