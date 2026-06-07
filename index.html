@@ -6,73 +6,87 @@
 <title>Les Brindilles — Bookings</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Jost:wght@300;400;500;600&display=swap');
-  :root {
-    --cream:#f8f4ee; --warm:#ede5d8; --ocean:#1e4a5c; --ocean-mid:#2d6678;
-    --ocean-pale:#e8f0f3; --text:#1a1a1a; --muted:#7a7060; --white:#fff;
-    --border:#ddd5c4; --green:#3d6b4f; --green-bg:#eaf2ec;
-    --red:#c9604a; --amber:#8b6020; --amber-bg:#faf0e0;
-    --pink:#c2185b; --pink-bg:#fce4ec; --blue:#1565c0; --blue-bg:#e3f2fd;
-  }
-  * { box-sizing:border-box; margin:0; padding:0; }
-  body { font-family:'Jost',sans-serif; background:var(--cream); color:var(--text); min-height:100vh; padding-bottom:40px; }
 
-  header { background:var(--ocean); padding:24px 20px 20px; }
-  .prop-name { font-family:'Cormorant Garamond',serif; font-size:2rem; font-weight:300; color:#fff; }
-  .prop-sub  { font-size:0.7rem; color:rgba(255,255,255,0.5); letter-spacing:0.14em; text-transform:uppercase; margin-top:4px; }
-  .today-pill { display:inline-flex; align-items:center; gap:6px; margin-top:12px; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.15); border-radius:20px; padding:5px 12px; font-size:0.72rem; color:rgba(255,255,255,0.8); }
-  .dot { width:6px; height:6px; background:#7ecba1; border-radius:50%; animation:pulse 2s infinite; }
+  :root {
+    --cream: #f8f4ee;
+    --warm:  #ede5d8;
+    --ocean: #1e4a5c;
+    --ocean-mid: #2d6678;
+    --ocean-pale: #e8f0f3;
+    --text:  #1a1a1a;
+    --muted: #7a7060;
+    --white: #fff;
+    --border: #ddd5c4;
+    --amber-bg: #faf0e0;
+    --amber:    #8b6020;
+    --pink-bg:  #fce4ec;
+    --pink:     #c2185b;
+    --green-bg: #e8f5e9;
+    --green:    #2e7d32;
+    --blue-bg:  #e3f2fd;
+    --blue:     #1565c0;
+    --grey-bg:  #f1f8e9;
+    --grey-green: #558b2f;
+    --grey-blue:  #1976d2;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Jost', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; padding-bottom: 40px; }
+
+  /* HEADER */
+  header { background: var(--ocean); padding: 24px 20px 20px; }
+  .prop-name { font-family: 'Cormorant Garamond', serif; font-size: 2rem; font-weight: 300; color: #fff; }
+  .prop-sub  { font-size: 0.7rem; color: rgba(255,255,255,0.5); letter-spacing: 0.14em; text-transform: uppercase; margin-top: 4px; }
+  .today-pill { display: inline-flex; align-items: center; gap: 6px; margin-top: 12px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); border-radius: 20px; padding: 5px 12px; font-size: 0.72rem; color: rgba(255,255,255,0.8); }
+  .dot { width: 6px; height: 6px; background: #7ecba1; border-radius: 50%; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(.8)} }
 
-  .filters { display:flex; border-bottom:2px solid var(--border); background:var(--cream); position:sticky; top:0; z-index:10; padding:14px 20px 0; }
-  .ftab { font-family:'Jost',sans-serif; font-size:0.75rem; font-weight:500; letter-spacing:0.06em; text-transform:uppercase; color:var(--muted); background:transparent; border:none; padding:6px 16px 12px; cursor:pointer; border-bottom:2px solid transparent; margin-bottom:-2px; }
-  .ftab.on { color:var(--ocean); border-bottom-color:var(--ocean); }
+  /* FILTERS */
+  .filters { display: flex; border-bottom: 2px solid var(--border); background: var(--cream); position: sticky; top: 0; z-index: 10; padding: 14px 20px 0; }
+  .ftab { font-family: 'Jost', sans-serif; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); background: transparent; border: none; padding: 6px 16px 12px; cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -2px; }
+  .ftab.on { color: var(--ocean); border-bottom-color: var(--ocean); }
 
-  .section-label { font-size:0.65rem; font-weight:600; letter-spacing:0.12em; text-transform:uppercase; color:var(--muted); padding:18px 20px 8px; }
+  /* SECTION */
+  .section-label { font-size: 0.65rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 18px 20px 8px; }
+  .cards { padding: 0 16px; }
 
-  .cards { padding:0 16px; }
-  .card { background:var(--white); border-radius:12px; border:1px solid var(--border); margin-bottom:12px; overflow:hidden; }
-  .card.current { border-color:var(--ocean-mid); box-shadow:0 0 0 2px rgba(45,102,120,0.12); }
-  .card.past { opacity:0.6; }
+  /* CARD */
+  .card { background: var(--white); border-radius: 12px; border: 1px solid var(--border); margin-bottom: 12px; overflow: hidden; }
+  .card.current  { border-color: var(--ocean-mid); box-shadow: 0 0 0 2px rgba(45,102,120,0.12); }
+  .card.past     { opacity: 0.6; }
+  .bar           { height: 3px; }
+  .bar.current   { background: linear-gradient(90deg, var(--ocean), var(--ocean-mid)); }
+  .bar.upcoming  { background: var(--amber); }
+  .bar.past      { background: var(--border); }
+  .card-body     { padding: 15px; }
 
-  .bar { height:3px; }
-  .bar.current  { background:linear-gradient(90deg,var(--ocean),var(--ocean-mid)); }
-  .bar.upcoming { background:var(--amber); }
-  .bar.past     { background:var(--border); }
+  /* CARD TOP */
+  .card-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 11px; }
+  .gname { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; font-weight: 400; line-height: 1.1; }
+  .sbadge { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 8px; border-radius: 10px; flex-shrink: 0; margin-top: 3px; }
+  .sbadge.current  { background: var(--ocean-pale); color: var(--ocean); }
+  .sbadge.upcoming { background: var(--amber-bg);   color: var(--amber); }
+  .sbadge.past     { background: var(--warm);        color: var(--muted); }
 
-  .card-body { padding:15px; }
-  .card-top { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:11px; }
-  .gname { font-family:'Cormorant Garamond',serif; font-size:1.3rem; font-weight:400; line-height:1.1; }
-  .sbadge { font-size:0.62rem; font-weight:600; letter-spacing:0.08em; text-transform:uppercase; padding:3px 8px; border-radius:10px; flex-shrink:0; margin-top:3px; }
-  .sbadge.current  { background:var(--ocean-pale); color:var(--ocean); }
-  .sbadge.upcoming { background:var(--amber-bg);   color:var(--amber); }
-  .sbadge.past     { background:var(--warm);        color:var(--muted); }
+  /* DATES */
+  .dates  { display: flex; align-items: center; gap: 8px; margin-bottom: 10px; }
+  .dblock { flex: 1; background: var(--cream); border-radius: 7px; padding: 7px 9px; }
+  .dlabel { font-size: 0.58rem; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+  .dval   { font-size: 0.9rem; font-weight: 500; }
+  .nsep   { font-size: 0.68rem; color: var(--muted); text-align: center; flex-shrink: 0; }
+  .nnum   { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; display: block; color: var(--ocean); }
 
-  .dates { display:flex; align-items:center; gap:8px; margin-bottom:10px; }
-  .dblock { flex:1; background:var(--cream); border-radius:7px; padding:7px 9px; }
-  .dlabel { font-size:0.58rem; font-weight:600; letter-spacing:0.1em; text-transform:uppercase; color:var(--muted); margin-bottom:2px; }
-  .dval   { font-size:0.9rem; font-weight:500; }
-  .red    { color:var(--red); font-weight:700; }
-  .nsep   { font-size:0.68rem; color:var(--muted); text-align:center; flex-shrink:0; }
-  .nnum   { font-family:'Cormorant Garamond',serif; font-size:1.05rem; display:block; color:var(--ocean); }
+  /* CHIPS & TAGS */
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 2px; }
+  .chip  { display: flex; align-items: center; gap: 4px; background: var(--cream); border-radius: 20px; padding: 3px 9px; font-size: 0.76rem; }
+  .tag   { display: inline-block; border-radius: 6px; padding: 4px 10px; font-size: 0.76rem; margin-top: 5px; font-weight: 500; }
 
-  .chips { display:flex; flex-wrap:wrap; gap:6px; margin-bottom:2px; }
-  .chip  { display:flex; align-items:center; gap:4px; background:var(--cream); border-radius:20px; padding:3px 9px; font-size:0.76rem; }
+  /* PROGRESS */
+  .progress      { height: 3px; background: var(--warm); border-radius: 2px; margin-top: 10px; overflow: hidden; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--ocean), var(--ocean-mid)); border-radius: 2px; }
+  .countdown     { font-size: 0.7rem; color: var(--ocean); font-weight: 500; margin-top: 4px; }
 
-  .info-row { margin-top:6px; font-size:0.78rem; }
-  .info-phone { display:flex; align-items:center; gap:5px; color:var(--ocean); font-weight:500; }
-  .info-phone a { color:var(--ocean); text-decoration:none; }
-  .info-country { color:var(--muted); font-weight:400; }
-  .tag { display:inline-block; border-radius:6px; padding:4px 10px; font-size:0.76rem; margin-top:5px; font-weight:500; }
-  .tag-pink  { background:var(--pink-bg);  color:var(--pink);  font-weight:600; }
-  .tag-blue  { background:var(--blue-bg);  color:var(--blue);  }
-  .tag-grey  { background:var(--warm);     color:var(--muted); }
-  .tag-amber { background:var(--amber-bg); color:var(--amber); }
-
-  .progress { height:3px; background:var(--warm); border-radius:2px; margin-top:10px; overflow:hidden; }
-  .progress-fill { height:100%; background:linear-gradient(90deg,var(--ocean),var(--ocean-mid)); border-radius:2px; }
-  .countdown { font-size:0.7rem; color:var(--ocean); font-weight:500; margin-top:4px; }
-
-  .empty { text-align:center; padding:36px; color:var(--muted); font-style:italic; font-size:0.9rem; }
+  .empty { text-align: center; padding: 36px; color: var(--muted); font-style: italic; font-size: 0.9rem; }
 </style>
 </head>
 <body>
@@ -93,87 +107,200 @@
 <div id="list"></div>
 
 <script>
-const today = new Date(); today.setHours(0,0,0,0);
-
+// ─── DATA ──────────────────────────────────────────────────────────────────────
+// Fields: name, ci (check-in), co (check-out), adults, children, infants,
+//         phone, country, checkin (arrival note), notes, cot ('yes'/'ask'/'no'), cotNote
 const bookings = [
-  {name:'Claire Dewost',          ci:'2025-12-26',co:'2026-01-02',adults:4,children:3,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Henri / Junior Payet',   ci:'2026-01-02',co:'2026-01-09',adults:7,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Alex Rose',              ci:'2026-01-11',co:'2026-01-18',adults:4,children:3,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Ernest McCall',          ci:'2026-01-24',co:'2026-01-29',adults:2,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Jean Charles Capillo',   ci:'2026-01-29',co:'2026-02-02',adults:2,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Nina Laerke',            ci:'2026-02-02',co:'2026-02-11',adults:5,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Nina Laerke',            ci:'2026-02-11',co:'2026-02-16',adults:2,children:0,infants:0,phone:'',country:'',checkin:'',notes:'3 guests departed Feb 11'},
-  {name:'Anna Leboucher',         ci:'2026-02-16',co:'2026-02-23',adults:4,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Anna Leboucher',         ci:'2026-02-23',co:'2026-03-01',adults:2,children:0,infants:0,phone:'',country:'',checkin:'',notes:'2 guests departed Feb 23'},
-  {name:'Yolande Schneider',      ci:'2026-03-04',co:'2026-03-15',adults:5,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Leon Benz',              ci:'2026-03-15',co:'2026-03-20',adults:4,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Thomas Riera',           ci:'2026-03-22',co:'2026-03-27',adults:2,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Steinar Lundeberg',      ci:'2026-03-27',co:'2026-04-06',adults:6,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Krishnaswamy Venugopal', ci:'2026-04-06',co:'2026-04-09',adults:4,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Nathalie Vasseur',       ci:'2026-04-09',co:'2026-04-16',adults:3,children:2,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Jevgenijs Kopilkovs',    ci:'2026-04-17',co:'2026-04-29',adults:2,children:2,infants:1,phone:'+371 29 211 775',country:'🇱🇻 Latvia',checkin:'',notes:'2 children + 1 infant',cot:'ask'},
-  {name:'Goran Todorovic',        ci:'2026-05-01',co:'2026-05-05',adults:2,children:2,infants:0,phone:'+33 6 23 11 63 91',country:'🇫🇷 France',checkin:'',notes:''},
-  {name:'Martin Riou',            ci:'2026-05-07',co:'2026-05-10',adults:4,children:0,infants:0,phone:'+33 7 82 45 49 77',country:'🇫🇷 France',checkin:'',notes:''},
-  {name:'Mazen Alsuhaymi',        ci:'2026-05-10',co:'2026-05-14',adults:2,children:0,infants:0,phone:'+966 55 256 7802',country:'🇸🇦 Saudi Arabia',checkin:'',notes:'Back-to-back with Martin — Anusha coming 10 May'},
-  {name:'Laurence Blanco',        ci:'2026-05-16',co:'2026-05-23',adults:4,children:0,infants:0,phone:'+62 822-3654-7866',country:'🇮🇩 Indonesia',checkin:'',notes:'Usha alone — overtime 15 May'},
-  {name:'Ashendra Bansal',        ci:'2026-05-24',co:'2026-05-30',adults:4,children:0,infants:2,phone:'+91 81975 55459',country:'🇮🇳 India',checkin:'Arrival 24 May 10–11am',notes:'Departure 30 May 6–7am',cot:'no'},
-  {name:'Nirav Parikh',           ci:'2026-06-04',co:'2026-06-07',adults:6,children:0,infants:0,phone:'+91 92234 84833',country:'🇮🇳 India',checkin:'',notes:''},
-  {name:'Aishwarya',              ci:'2026-06-08',co:'2026-06-15',adults:3,children:0,infants:1,phone:'',country:'',checkin:'',notes:"Aakash's sister's friend",cot:'yes',cotNote:'Cot + sheets needed'},
-  {name:'Алёна / Alyona Nikiforova',ci:'2026-06-15',co:'2026-06-19',adults:2,children:3,infants:1,phone:'+7 913 463 7776',country:'🇷🇺 Russia',checkin:'',notes:'🐾 1 pet',cot:'yes',cotNote:'Cot + sheets needed'},
-  {name:'Tallulah Juta',          ci:'2026-06-19',co:'2026-06-23',adults:3,children:0,infants:1,phone:'+27 78 029 0375',country:'🇿🇦 South Africa',checkin:'',notes:'Coming from East Coast · Need to make up all 4 rooms',cot:'yes',cotNote:'Cot + sheets needed'},
-  {name:'Aloïs Baujon',           ci:'2026-06-23',co:'2026-06-27',adults:2,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Morgane Honore',         ci:'2026-06-27',co:'2026-06-30',adults:5,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'John Shields',           ci:'2026-06-30',co:'2026-07-09',adults:4,children:2,infants:0,phone:'+34 663 83 25 52',country:'🇪🇸 Spain',checkin:'',notes:''},
-  {name:'Pritesh Vinay',          ci:'2026-07-10',co:'2026-07-13',adults:1,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Jasmina Van Eeckhout',   ci:'2026-07-14',co:'2026-07-23',adults:2,children:2,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Abhishek Mohan',         ci:'2026-07-23',co:'2026-08-03',adults:7,children:2,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Margot Febvey',          ci:'2026-08-07',co:'2026-08-11',adults:5,children:1,infants:1,phone:'',country:'',checkin:'',notes:'',cot:'ask'},
-  {name:'Michaela Stelzl',        ci:'2026-08-21',co:'2026-08-25',adults:7,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Paul Booth',             ci:'2026-08-26',co:'2026-08-30',adults:4,children:1,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Estelle Schoonwinkel',   ci:'2026-10-01',co:'2026-10-08',adults:3,children:0,infants:1,phone:'',country:'',checkin:'',notes:'',cot:'ask'},
-  {name:'Herve Miedel',           ci:'2026-10-17',co:'2026-10-29',adults:4,children:1,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Sériane Bogni',          ci:'2026-10-30',co:'2026-11-04',adults:6,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Véronique Gosset',       ci:'2026-11-13',co:'2026-11-19',adults:4,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Janos Kalman',           ci:'2026-11-20',co:'2026-11-25',adults:2,children:1,infants:1,phone:'',country:'',checkin:'',notes:'',cot:'ask'},
-  {name:'Claire Cooper',          ci:'2026-12-12',co:'2026-12-16',adults:5,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Dee Janvier-Wood',       ci:'2026-12-16',co:'2027-01-01',adults:4,children:1,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Gabriela Egeli',         ci:'2027-01-01',co:'2027-01-09',adults:3,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
-  {name:'Susan Falck',            ci:'2027-01-09',co:'2027-01-17',adults:2,children:0,infants:0,phone:'',country:'',checkin:'',notes:''},
+  { name:'Claire Dewost',           ci:'2025-12-26', co:'2026-01-02', adults:4, children:3, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Henri / Junior Payet',    ci:'2026-01-02', co:'2026-01-09', adults:7, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Alex Rose',               ci:'2026-01-11', co:'2026-01-18', adults:4, children:3, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Ernest McCall',           ci:'2026-01-24', co:'2026-01-29', adults:2, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Jean Charles Capillo',    ci:'2026-01-29', co:'2026-02-02', adults:2, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Nina Laerke',             ci:'2026-02-02', co:'2026-02-11', adults:5, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Nina Laerke',             ci:'2026-02-11', co:'2026-02-16', adults:2, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'3 guests departed Feb 11' },
+  { name:'Anna Leboucher',          ci:'2026-02-16', co:'2026-02-23', adults:4, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Anna Leboucher',          ci:'2026-02-23', co:'2026-03-01', adults:2, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'2 guests departed Feb 23' },
+  { name:'Yolande Schneider',       ci:'2026-03-04', co:'2026-03-15', adults:5, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Leon Benz',               ci:'2026-03-15', co:'2026-03-20', adults:4, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Thomas Riera',            ci:'2026-03-22', co:'2026-03-27', adults:2, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Steinar Lundeberg',       ci:'2026-03-27', co:'2026-04-06', adults:6, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Krishnaswamy Venugopal',  ci:'2026-04-06', co:'2026-04-09', adults:4, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Nathalie Vasseur',        ci:'2026-04-09', co:'2026-04-16', adults:3, children:2, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Jevgenijs Kopilkovs',     ci:'2026-04-17', co:'2026-04-29', adults:2, children:2, infants:1, phone:'+371 29 211 775',    country:'🇱🇻 Latvia',      checkin:'', notes:'2 children + 1 infant',   cot:'ask' },
+  { name:'Goran Todorovic',         ci:'2026-05-01', co:'2026-05-05', adults:2, children:2, infants:0, phone:'+33 6 23 11 63 91',  country:'🇫🇷 France',      checkin:'', notes:'' },
+  { name:'Martin Riou',             ci:'2026-05-07', co:'2026-05-10', adults:4, children:0, infants:0, phone:'+33 7 82 45 49 77',  country:'🇫🇷 France',      checkin:'', notes:'' },
+  { name:'Mazen Alsuhaymi',         ci:'2026-05-10', co:'2026-05-14', adults:2, children:0, infants:0, phone:'+966 55 256 7802',   country:'🇸🇦 Saudi Arabia', checkin:'', notes:'Back-to-back with Martin' },
+  { name:'Laurence Blanco',         ci:'2026-05-16', co:'2026-05-23', adults:4, children:0, infants:0, phone:'+62 822-3654-7866',  country:'🇮🇩 Indonesia',   checkin:'', notes:'Usha alone — overtime 15 May' },
+  { name:'Ashendra Bansal',         ci:'2026-05-24', co:'2026-05-30', adults:4, children:0, infants:2, phone:'+91 81975 55459',    country:'🇮🇳 India',       checkin:'Arrival 24 May 10–11am', notes:'Departure 30 May 6–7am', cot:'no' },
+  { name:'Nirav Parikh',            ci:'2026-06-04', co:'2026-06-07', adults:6, children:0, infants:0, phone:'+91 92234 84833',    country:'🇮🇳 India',       checkin:'', notes:'' },
+  { name:'Aishwarya',               ci:'2026-06-08', co:'2026-06-15', adults:3, children:0, infants:1, phone:'',                   country:'',               checkin:'', notes:"Aakash's sister's friend", cot:'yes', cotNote:'Cot + sheets needed' },
+  { name:'Алёна / Alyona Nikiforova', ci:'2026-06-15', co:'2026-06-19', adults:2, children:3, infants:1, phone:'+7 913 463 7776', country:'🇷🇺 Russia',      checkin:'', notes:'🐾 1 pet',                 cot:'yes', cotNote:'Cot + sheets needed' },
+  { name:'Tallulah Juta',           ci:'2026-06-19', co:'2026-06-23', adults:3, children:0, infants:1, phone:'+27 78 029 0375',   country:'🇿🇦 South Africa', checkin:'', notes:'Coming from East Coast · Need to make up all 4 rooms', cot:'yes', cotNote:'Cot + sheets needed' },
+  { name:'Aloïs Baujon',            ci:'2026-06-23', co:'2026-06-27', adults:2, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Morgane Honore',          ci:'2026-06-27', co:'2026-06-30', adults:5, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'John Shields',            ci:'2026-06-30', co:'2026-07-09', adults:4, children:2, infants:0, phone:'+34 663 83 25 52',   country:'🇪🇸 Spain',       checkin:'', notes:'' },
+  { name:'Pritesh Vinay',           ci:'2026-07-10', co:'2026-07-13', adults:1, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'Anusha coming Thu 9 Jul to prep' },
+  { name:'Jasmina Van Eeckhout',    ci:'2026-07-14', co:'2026-07-23', adults:2, children:2, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Abhishek Mohan',          ci:'2026-07-23', co:'2026-08-03', adults:7, children:2, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Margot Febvey',           ci:'2026-08-07', co:'2026-08-11', adults:5, children:1, infants:1, phone:'',                   country:'',               checkin:'', notes:'', cot:'ask' },
+  { name:'Michaela Stelzl',         ci:'2026-08-21', co:'2026-08-25', adults:7, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Paul Booth',              ci:'2026-08-26', co:'2026-08-30', adults:4, children:1, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Estelle Schoonwinkel',    ci:'2026-10-01', co:'2026-10-08', adults:3, children:0, infants:1, phone:'',                   country:'',               checkin:'', notes:'', cot:'ask' },
+  { name:'Herve Miedel',            ci:'2026-10-17', co:'2026-10-29', adults:4, children:1, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Sériane Bogni',           ci:'2026-10-30', co:'2026-11-04', adults:6, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Véronique Gosset',        ci:'2026-11-13', co:'2026-11-19', adults:4, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Janos Kalman',            ci:'2026-11-20', co:'2026-11-25', adults:2, children:1, infants:1, phone:'',                   country:'',               checkin:'', notes:'', cot:'ask' },
+  { name:'Claire Cooper',           ci:'2026-12-12', co:'2026-12-16', adults:5, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Dee Janvier-Wood',        ci:'2026-12-16', co:'2027-01-01', adults:4, children:1, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Gabriela Egeli',          ci:'2027-01-01', co:'2027-01-09', adults:3, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
+  { name:'Susan Falck',             ci:'2027-01-09', co:'2027-01-17', adults:2, children:0, infants:0, phone:'',                   country:'',               checkin:'', notes:'' },
 ];
 
-// Pre-compute back-to-back dates (same day or next day turnaround)
-function buildB2B() {
-  const cos = {}, cis = {};
-  bookings.forEach(b => { cos[b.co] = true; cis[b.ci] = true; });
-  const b2b = new Set();
-  Object.keys(cos).forEach(co => {
-    if (cis[co]) { b2b.add(co); }
-    const next = addDays(co, 1);
-    if (cis[next]) { b2b.add(co); b2b.add(next); }
-  });
-  return b2b;
+// ─── HELPERS ──────────────────────────────────────────────────────────────────
+const today = new Date(); today.setHours(0,0,0,0);
+
+function addDays(iso, n) {
+  const d = new Date(iso + 'T00:00:00');
+  d.setDate(d.getDate() + n);
+  return d.toISOString().slice(0, 10);
 }
-const b2b = buildB2B();
+
+function nights(ci, co) {
+  return Math.round((new Date(co) - new Date(ci)) / 86400000);
+}
+
+function daysFrom(iso) {
+  return Math.round((new Date(iso + 'T00:00:00') - today) / 86400000);
+}
 
 function status(b) {
-  const ci = new Date(b.ci); ci.setHours(0,0,0,0);
-  const co = new Date(b.co); co.setHours(0,0,0,0);
+  const ci = new Date(b.ci + 'T00:00:00');
+  const co = new Date(b.co + 'T00:00:00');
   if (today >= ci && today < co) return 'current';
   if (ci > today) return 'upcoming';
   return 'past';
 }
 
-function nights(ci, co) { return Math.round((new Date(co) - new Date(ci)) / 86400000); }
-function addDays(iso, n) { const d = new Date(iso); d.setDate(d.getDate()+n); return d.toISOString().slice(0,10); }
-function daysUntil(iso) { return Math.round((new Date(iso) - today) / 86400000); }
+// ─── BACK-TO-BACK LOGIC ───────────────────────────────────────────────────────
+// sameDay: checkout and checkin on same date
+// nextDay: checkout on day X, checkin on day X+1
+// coMap:   checkout date → booking (to look up leaving group size)
+function buildB2B() {
+  const coMap = {}, ciSet = new Set();
+  bookings.forEach(b => { coMap[b.co] = b; ciSet.add(b.ci); });
+  const sameDay = new Set(), nextDay = new Set();
+  Object.keys(coMap).forEach(co => {
+    if (ciSet.has(co)) sameDay.add(co);
+    const next = addDays(co, 1);
+    if (ciSet.has(next)) { nextDay.add(co); nextDay.add(next); }
+  });
+  return { sameDay, nextDay, coMap };
+}
+const b2b = buildB2B();
 
-function fmtDate(iso) {
-  const d = new Date(iso + 'T00:00:00');
-  const str = d.toLocaleDateString('en-GB', {weekday:'short', day:'numeric', month:'short'});
-  return b2b.has(iso) ? '<span class="red">' + str + '</span>' : str;
+// ─── HELPER ASSIGNMENT ────────────────────────────────────────────────────────
+// Anusha: Sun(0) Mon(1) Thu(4) Sat(6)
+// Afiza:  Tue(2) Wed(3) Fri(5)
+// Same-day b2b → helper based on that day, always confirmed
+// Next-day b2b → helper based on DEPARTURE day, shown as question if leaving pax > 4
+function helperForDay(iso) {
+  const dow = new Date(iso + 'T00:00:00').getDay();
+  return [0, 1, 4, 6].includes(dow) ? 'Anusha' : 'Afiza';
 }
 
+function getHelper(b) {
+  if (b2b.sameDay.has(b.ci)) {
+    return { name: helperForDay(b.ci), confirmed: true };
+  }
+  if (b2b.nextDay.has(b.ci)) {
+    const prevDay = addDays(b.ci, -1);
+    const leaving = b2b.coMap[prevDay];
+    if (leaving) {
+      const pax = leaving.adults + (leaving.children || 0) + (leaving.infants || 0);
+      if (pax > 4) return { name: helperForDay(prevDay), confirmed: false };
+    }
+  }
+  return null;
+}
+
+// ─── DATE FORMATTING ──────────────────────────────────────────────────────────
+// Same-day b2b dates: bright red. Everything else: black.
+function fmtDate(iso) {
+  const d = new Date(iso + 'T00:00:00');
+  const str = d.toLocaleDateString('en-GB', { weekday: 'short', day: 'numeric', month: 'short' });
+  return b2b.sameDay.has(iso)
+    ? '<span style="color:#ff0000;font-weight:700">' + str + '</span>'
+    : str;
+}
+
+// ─── CARD RENDERER ────────────────────────────────────────────────────────────
+function renderCard(b) {
+  const s  = status(b);
+  const n  = nights(b.ci, b.co);
+  const pax = b.adults + (b.children || 0) + (b.infants || 0);
+
+  // Countdown / progress bar
+  let countdown = '';
+  if (s === 'current') {
+    const stayed = nights(b.ci, new Date().toISOString().slice(0, 10));
+    const pct = Math.min(100, Math.round(stayed / n * 100));
+    const dl = daysFrom(b.co);
+    countdown = '<div class="progress"><div class="progress-fill" style="width:' + pct + '%"></div></div>'
+              + '<div class="countdown">Checking out in ' + dl + ' day' + (dl !== 1 ? 's' : '') + '</div>';
+  } else if (s === 'upcoming') {
+    const du = daysFrom(b.ci);
+    countdown = '<div class="countdown">Check-in in ' + du + ' day' + (du !== 1 ? 's' : '') + '</div>';
+  }
+
+  // Guest chips
+  let chips = '';
+  if (b.adults)   chips += '<span class="chip">👤 ' + b.adults   + ' adult'    + (b.adults   !== 1 ? 's' : '') + '</span>';
+  if (b.children) chips += '<span class="chip">🧒 ' + b.children + ' child'    + (b.children !== 1 ? 'ren' : '') + '</span>';
+  if (b.infants)  chips += '<span class="chip">🍼 ' + b.infants  + ' infant'   + (b.infants  !== 1 ? 's' : '') + '</span>';
+
+  // Info rows
+  let info = '';
+
+  if (b.phone) {
+    info += '<div style="margin-top:6px;display:flex;align-items:center;gap:5px;font-size:0.78rem;color:var(--ocean);font-weight:500;">'
+          + '📞 <a href="tel:' + b.phone + '" style="color:var(--ocean);text-decoration:none;">' + b.phone + '</a>'
+          + (b.country ? '<span style="color:var(--muted);font-weight:400;">' + b.country + '</span>' : '')
+          + '</div>';
+  }
+
+  if (b.cot === 'yes') info += '<div class="tag" style="background:var(--pink-bg);color:var(--pink);font-weight:600;">🍼 ' + (b.cotNote || 'Cot + sheets needed') + '</div>';
+  if (b.cot === 'ask') info += '<div class="tag" style="background:var(--pink-bg);color:var(--pink);">🍼 Does client need cot?</div>';
+
+  if (b.checkin) info += '<div class="tag" style="background:var(--amber-bg);color:var(--amber);">🕐 ' + b.checkin + '</div>';
+
+  if (b.notes) info += '<div style="margin-top:5px;font-size:0.78rem;color:var(--muted);font-style:italic;">📝 ' + b.notes + '</div>';
+
+  const helper = getHelper(b);
+  if (helper && helper.confirmed && helper.name === 'Anusha') info += '<div class="tag" style="background:var(--green-bg);color:var(--green);">👥 Anusha coming to help Usha</div>';
+  if (helper && helper.confirmed && helper.name === 'Afiza')  info += '<div class="tag" style="background:var(--blue-bg);color:var(--blue);">👥 Afiza coming to help Usha</div>';
+  if (helper && !helper.confirmed && helper.name === 'Anusha') info += '<div class="tag" style="background:var(--grey-bg);color:var(--grey-green);">👥 Does Anusha need to help Usha?</div>';
+  if (helper && !helper.confirmed && helper.name === 'Afiza')  info += '<div class="tag" style="background:#e8f4fd;color:var(--grey-blue);">👥 Does Afiza need to help Usha?</div>';
+
+  return '<div class="card ' + s + '">'
+    + '<div class="bar ' + s + '"></div>'
+    + '<div class="card-body">'
+    + '<div class="card-top">'
+    + '<div><div class="gname">' + b.name + '</div>' + countdown + '</div>'
+    + '<span class="sbadge ' + s + '">' + (s === 'current' ? 'In house' : s === 'upcoming' ? 'Upcoming' : 'Past') + '</span>'
+    + '</div>'
+    + '<div class="dates">'
+    + '<div class="dblock"><div class="dlabel">Check-in</div><div class="dval">' + fmtDate(b.ci) + '</div></div>'
+    + '<div class="nsep"><span class="nnum">' + n + '</span>nights</div>'
+    + '<div class="dblock"><div class="dlabel">Check-out</div><div class="dval">' + fmtDate(b.co) + '</div></div>'
+    + '</div>'
+    + '<div class="chips">' + chips + '</div>'
+    + info
+    + '</div></div>';
+}
+
+// ─── RENDER ───────────────────────────────────────────────────────────────────
 let currentFilter = 'all';
+
 function setFilter(f, btn) {
   currentFilter = f;
   document.querySelectorAll('.ftab').forEach(t => t.classList.remove('on'));
@@ -181,102 +308,35 @@ function setFilter(f, btn) {
   render();
 }
 
-function card(b) {
-  const s = status(b);
-  const n = nights(b.ci, b.co);
-  const pax = b.adults + (b.children||0) + (b.infants||0);
-  const du = daysUntil(b.ci);
-  const dl = daysUntil(b.co);
-
-  let extra = '';
-  // Countdown / progress
-  if (s === 'current') {
-    const stayed = nights(b.ci, new Date().toISOString().slice(0,10));
-    const pct = Math.min(100, Math.round(stayed/n*100));
-    extra += '<div class="progress"><div class="progress-fill" style="width:'+pct+'%"></div></div>';
-    extra += '<div class="countdown">Checking out in '+dl+' day'+(dl!==1?'s':'')+'</div>';
-  } else if (s === 'upcoming') {
-    extra += '<div class="countdown">Check-in in '+du+' day'+(du!==1?'s':'')+'</div>';
-  }
-
-  // Guest chips
-  let chips = '';
-  if (b.adults)   chips += '<span class="chip">👤 '+b.adults+' adult'+(b.adults!==1?'s':'')+'</span>';
-  if (b.children) chips += '<span class="chip">🧒 '+b.children+' child'+(b.children!==1?'ren':'')+'</span>';
-  if (b.infants)  chips += '<span class="chip">🍼 '+b.infants+' infant'+(b.infants!==1?'s':'')+'</span>';
-
-  // Info rows
-  let info = '';
-  if (b.phone) {
-    info += '<div class="info-row info-phone">📞 <a href="tel:'+b.phone+'">'+b.phone+'</a>';
-    if (b.country) info += '<span class="info-country">'+b.country+'</span>';
-    info += '</div>';
-  }
-  if (b.cot === 'yes')  info += '<div class="tag tag-pink">🍼 '+(b.cotNote||'Cot + sheets needed')+'</div>';
-  if (b.cot === 'ask')  info += '<div class="tag tag-pink">🍼 Does client need cot?</div>';
-  if (b.checkin) info += '<div class="tag tag-amber">🕐 '+b.checkin+'</div>';
-  if (b.notes)   info += '<div class="info-row" style="margin-top:5px;font-size:0.78rem;color:var(--muted);font-style:italic;">📝 '+b.notes+'</div>';
-  const helper = getHelper(b);
-  if (helper === 'Anusha') info += '<div class="tag" style="background:#e8f5e9;color:#2e7d32;margin-top:5px;">👥 Anusha coming to help Usha</div>';
-  if (helper === 'Afiza')  info += '<div class="tag" style="background:#e3f2fd;color:#1565c0;margin-top:5px;">👥 Afiza coming to help Usha</div>';
-
-  return '<div class="card '+s+'">'
-    + '<div class="bar '+s+'"></div>'
-    + '<div class="card-body">'
-    + '<div class="card-top">'
-    + '<div><div class="gname">'+b.name+'</div>'+extra+'</div>'
-    + '<span class="sbadge '+s+'">'+(s==='current'?'In house':s==='upcoming'?'Upcoming':'Past')+'</span>'
-    + '</div>'
-    + '<div class="dates">'
-    + '<div class="dblock"><div class="dlabel">Check-in</div><div class="dval">'+fmtDate(b.ci)+'</div></div>'
-    + '<div class="nsep"><span class="nnum">'+n+'</span>nights</div>'
-    + '<div class="dblock"><div class="dlabel">Check-out</div><div class="dval">'+fmtDate(b.co)+'</div></div>'
-    + '</div>'
-    + '<div class="chips">'+chips+'</div>'
-    + info
-    + '</div></div>';
-}
-
-// Auto-assign helper for b2b arrivals based on check-in day
-// Anusha: Sun(0) Mon(1) Thu(4) Sat(6) — Afiza: Tue(2) Wed(3) Fri(5)
-function getHelper(b) {
-  if (!b2b.has(b.ci)) return null;
-  const dow = new Date(b.ci + 'T00:00:00').getDay(); // 0=Sun
-  return [0, 1, 4, 6].includes(dow) ? 'Anusha' : 'Afiza';
-}
-
 function render() {
-  const list = document.getElementById('list');
-  const sorted = [...bookings].sort((a,b) => a.ci.localeCompare(b.ci));
-  const groups = {current:[], upcoming:[], past:[]};
+  const sorted = [...bookings].sort((a, b) => a.ci.localeCompare(b.ci));
+  const groups = { current: [], upcoming: [], past: [] };
   sorted.forEach(b => groups[status(b)].push(b));
 
-  let html = '';
   function section(label, items) {
-    if (!items.length) return;
-    if (currentFilter !== 'all' && currentFilter !== label.toLowerCase().replace(' ','')) return;
-    if (currentFilter === 'all' || currentFilter === status(items[0])) {
-      html += '<div class="section-label">'+label+'</div><div class="cards">';
-      items.forEach(b => html += card(b));
-      html += '</div>';
-    }
+    if (!items.length) return '';
+    return '<div class="section-label">' + label + '</div><div class="cards">'
+      + items.map(renderCard).join('')
+      + '</div>';
   }
 
+  let html = '';
   if (currentFilter === 'all') {
-    if (groups.current.length)  { html += '<div class="section-label">Currently In House</div><div class="cards">'; groups.current.forEach(b => html += card(b)); html += '</div>'; }
-    if (groups.upcoming.length) { html += '<div class="section-label">Upcoming</div><div class="cards">'; groups.upcoming.forEach(b => html += card(b)); html += '</div>'; }
-    if (groups.past.length)     { html += '<div class="section-label">Past Stays</div><div class="cards">'; groups.past.forEach(b => html += card(b)); html += '</div>'; }
+    html += section('Currently In House', groups.current);
+    html += section('Upcoming', groups.upcoming);
+    html += section('Past Stays', groups.past);
   } else {
     const items = groups[currentFilter] || [];
     const label = currentFilter === 'current' ? 'Currently In House' : currentFilter === 'upcoming' ? 'Upcoming' : 'Past Stays';
-    if (items.length) { html += '<div class="section-label">'+label+'</div><div class="cards">'; items.forEach(b => html += card(b)); html += '</div>'; }
-    else html += '<div class="empty">No bookings to show.</div>';
+    html = items.length ? section(label, items) : '<div class="empty">No bookings to show.</div>';
   }
 
-  list.innerHTML = html;
+  document.getElementById('list').innerHTML = html;
 }
 
-document.getElementById('todayLabel').textContent = today.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
+// ─── INIT ─────────────────────────────────────────────────────────────────────
+document.getElementById('todayLabel').textContent =
+  today.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
 render();
 </script>
 </body>
